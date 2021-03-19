@@ -1,0 +1,10 @@
+.home{
+    padding: 120px 0px;
+}
+.vehicles{
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    align-items: center;
+}

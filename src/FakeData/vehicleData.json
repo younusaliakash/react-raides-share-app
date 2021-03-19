@@ -1,0 +1,100 @@
+[{
+    "id" : 1,
+    "vehicleType" : "BIKE",
+    "vehiclePhoto" : "https://i.postimg.cc/DyVv2Vyx/Frame.png",
+    "vehicleName" : "Bike",
+    "fareDetails" : [{
+        "rideVehicle" : "Bike",
+        "vehicleIcon" : "https://i.postimg.cc/DyVv2Vyx/Frame.png",
+        "fare" : 50,
+        "seat" : 1,
+        "startFrom" : "Mirpur 1"
+    },{
+        "rideVehicle" : "Bike",
+        "vehicleIcon" : "https://i.postimg.cc/DyVv2Vyx/Frame.png",
+        "fare" : 70,
+        "seat" : 1,
+        "startFrom" : "Mirpur 1"
+    },{
+        "rideVehicle" : "Bike",
+        "vehicleIcon" : "https://i.postimg.cc/DyVv2Vyx/Frame.png",
+        "fare" : 90,
+        "seat" : 1,
+        "startFrom" : "Mirpur 1"
+    }]
+},
+{
+    "id" : 2,
+    "vehicleType" : "CAR",
+    "vehiclePhoto" : "https://i.postimg.cc/htcKd9mx/Frame-2.png",
+    "vehicleName" : "Car",
+    "fareDetails" : [{
+        "rideVehicle" : "Car",
+        "vehicleIcon" : "https://i.postimg.cc/htcKd9mx/Frame-2.png",
+        "fare" : 40,
+        "seat" : 4,
+        "startFrom" : "Mirpur 1"
+    },{
+        "rideVehicle" : "Car",
+        "vehicleIcon" : "https://i.postimg.cc/htcKd9mx/Frame-2.png",
+        "fare" : 60,
+        "seat" : 6,
+        "startFrom" : "Mirpur 1"
+    },{
+        "rideVehicle" : "Car",
+        "vehicleIcon" : "https://i.postimg.cc/htcKd9mx/Frame-2.png",
+        "fare" : 70,
+        "seat" : 8,
+        "startFrom" : "Mirpur 1"
+    }]
+},
+{
+    "id" : 3,
+    "vehicleType" : "BUS",
+    "vehiclePhoto" : "https://i.postimg.cc/65d9qH8t/Frame-1.png",
+    "vehicleName" : "Bus",
+    "fareDetails" : [{
+        "rideVehicle" : "Bus",
+        "vehicleIcon" : "https://i.postimg.cc/65d9qH8t/Frame-1.png",
+        "fare" : 5,
+        "seat" : 1,
+        "startFrom" : "Mirpur 1"
+    },{
+        "rideVehicle" : "Bus",
+        "vehicleIcon" : "https://i.postimg.cc/65d9qH8t/Frame-1.png",
+        "fare" : 10,
+        "seat" : 2,
+        "startFrom" : "Mirpur 1"
+    },{
+        "rideVehicle" : "Bus",
+        "vehicleIcon" : "https://i.postimg.cc/65d9qH8t/Frame-1.png",
+        "fare" : 15,
+        "seat" : 4,
+        "startFrom" : "Mirpur 1"
+    }]
+},
+{
+    "id" : 4,
+    "vehicleType" : "TRAIN",
+    "vehiclePhoto" : "https://i.postimg.cc/vZhbLc7K/Group.png",
+    "vehicleName" : "Train",
+    "fareDetails" : [{
+        "rideVehicle" : "Train",
+        "vehicleIcon" : "https://i.postimg.cc/vZhbLc7K/Group.png",
+        "fare" : 20,
+        "seat" : 1,
+        "startFrom" : "Komplapur"
+    },{
+        "rideVehicle" : "Train",
+        "vehicleIcon" : "https://i.postimg.cc/vZhbLc7K/Group.png",
+        "fare" : 39,
+        "seat" : 2,
+        "startFrom" : "Komplapur"
+    },{
+        "rideVehicle" : "Train",
+        "vehicleIcon" : "https://i.postimg.cc/vZhbLc7K/Group.png",
+        "fare" : 80,
+        "seat" : 3,
+        "startFrom" : "Komplapur"
+    }]
+}]

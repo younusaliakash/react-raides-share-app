@@ -1,0 +1,14 @@
+.vehicle-card{
+    max-width: 300px !important;
+    height: 250px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+.card-img{
+    width: 200px;
+    height: 165px;
+}
+.vehicle-title{
+    margin-top: 10px;
+}

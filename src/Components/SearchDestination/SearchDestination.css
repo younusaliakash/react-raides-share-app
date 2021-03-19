@@ -1,0 +1,31 @@
+.search-form{
+    background-color: #EFEFEF !important;
+    border-radius: 10px;
+    min-width: 300px;
+}
+.search-fields{
+    padding: 10px;
+}
+.search-btn{
+    font-size: 15px !important;
+    /* background-color: #007BFF !important;
+    color:white;
+    text-decoration: none !important;
+    padding: 10px 60px; */
+}
+/* .search-btn:hover{
+    color: ivory;
+} */
+.logo{
+    width: 40px;
+    
+}
+.fare-card{
+    background-color: white;
+    margin: 8px 0px;
+    border-radius: 10px;
+}
+.fare-details{
+    padding: 10px;
+    align-items: center;
+}

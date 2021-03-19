@@ -1,0 +1,22 @@
+/* .google-map{
+    max-width: 200px;
+} */
+.destination-area{
+    display: flex;
+    
+    flex-wrap: wrap;
+    
+}
+/* .search-destination{
+    margin-right: 100px;
+}
+@media (min-width: 576px) {
+    .search-destination{
+        display: inline-block;
+    }
+ }
+ @media (min-width: 768px) { 
+    .search-destination{
+        display: inline-block;
+    }
+ } */
