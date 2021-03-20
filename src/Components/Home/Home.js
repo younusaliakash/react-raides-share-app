@@ -18,6 +18,7 @@ const Home = () => {
   }
   return (
     <div className="home">
+      <h1 className="home-title">Rides Now And Explore The World!</h1>
       <div className="vehicles">
         {vehicles.map((vehicle) => (
           <Vehicles key={vehicle.id} vehicleInfo={vehicle} handleVehicleClick={handleVehicleClick}></Vehicles>

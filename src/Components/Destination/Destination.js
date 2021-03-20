@@ -17,7 +17,7 @@ const Destination = () => {
         <div className="search-destination">
           <SearchDestination selectedVehicleInfo={vehicle}></SearchDestination>
         </div>
-        <div className="col google-map">
+        <div className="col google-map mt-3">
           <GoogleMap></GoogleMap>
         </div>
       </div>

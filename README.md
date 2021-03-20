@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+# __Rapid Rides__
+Live Link: 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## **_Website features_** :
 
-## Available Scripts
+> User can see Different vehicle ride shareing card in Home UI 
 
-In the project directory, you can run:
+> If the user hovers on the team card then the user will watch a mind-blowing effect.
 
-### `npm start`
+> If the user clicks the any vehicle card, the user will see route search and map in destination page. If user not log in the this site it will show log in page before show destination page. after log in successfully system redirect to destination page.
+    
+> Before try to search ride user must logged in to the website. User can Sign Up or sign In using log in page. After log in successfully user will see his/her Name in top right corner navigation bar. user can log in/sign in useing their google and facebook account. If any user haven't exiting account , user can create an account using user name,email and password .
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## **_Usage Function_** :
+1. Hooks 
+    * useEffect()
+    ```js
+    useEffect(() =>{
+        fetch("url")
+        .then((response) => response.json())
+        .then( data => setData(data))
+    },[])
+    ```
+    * useState()
+    ```js
+    const [name, setName] = useState([])
+    ```
+    * useParams()
+    ```js
+    const {id} = useParams()
+    ```
+2. React Router
+    * Router
+    * Route
+    * Switch
+    * Link
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+3. Authentication System (Using Firebase)
+    * Create account by Email and Password
+    * Log in Using social Provider
+    * Log in using exiting email and password.
+    
+    | Thank you very much. |
+    | ------------- |

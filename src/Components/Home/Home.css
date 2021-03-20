@@ -1,6 +1,11 @@
 .home{
     padding: 120px 0px;
 }
+.home-title{
+    text-align: center;
+    font-weight: 800;
+    margin-bottom: 43px;
+}
 .vehicles{
     display: flex;
     justify-content:space-evenly;

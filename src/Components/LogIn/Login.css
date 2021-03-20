@@ -1,8 +1,13 @@
+.title{
+    text-align: center;
+    padding-top: 15px;
+}
 .log-in-card{
     background-color: white !important;
     max-width: 440px;
     margin: 0 auto;
     border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 2);
 }
 .logIn-form{
     padding: 20px !important;

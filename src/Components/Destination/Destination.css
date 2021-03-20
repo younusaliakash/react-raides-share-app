@@ -7,10 +7,10 @@
     flex-wrap: wrap;
     
 }
-/* .search-destination{
-    margin-right: 100px;
+.search-destination{
+    margin: 0 auto;
 }
-@media (min-width: 576px) {
+/* @media (min-width: 576px) {
     .search-destination{
         display: inline-block;
     }

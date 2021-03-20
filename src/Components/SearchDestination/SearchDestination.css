@@ -1,23 +1,17 @@
 .search-form{
     background-color: #EFEFEF !important;
     border-radius: 10px;
-    min-width: 300px;
+    min-width: 290px;
+    margin-left: -20px
 }
 .search-fields{
     padding: 10px;
 }
 .search-btn{
     font-size: 15px !important;
-    /* background-color: #007BFF !important;
-    color:white;
-    text-decoration: none !important;
-    padding: 10px 60px; */
 }
-/* .search-btn:hover{
-    color: ivory;
-} */
 .logo{
-    width: 40px;
+    width: 50px;
     
 }
 .fare-card{

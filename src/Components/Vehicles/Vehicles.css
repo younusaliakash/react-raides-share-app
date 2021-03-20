@@ -4,6 +4,14 @@
     padding: 20px;
     text-align: center;
     cursor: pointer;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 2);
+    transition: 0.5s;
+}
+.vehicle-card:hover{
+    color: black;
+    font-weight: 900;
+    transform: translateY(-15px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 10);
 }
 .card-img{
     width: 200px;

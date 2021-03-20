@@ -1,61 +1,186 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { handleFacebookSingIn, handleGoogleSingIn, initializeLoginFramework } from "../AuthManager/AuthManager";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import {
+  handleFacebookSingIn,
+  handleGoogleSingIn,
+  initializeLoginFramework,
+  createUserWithEmailAndPassword,
+    signInWithEmailAndPassword 
+} from "../AuthManager/AuthManager";
 import "./Login.css";
+import { UserInfoContext } from '../../App'
+import { useForm } from "react-hook-form";
+
+
 
 const LogIn = () => {
-    initializeLoginFramework()
+  const [newUser, setNewUser] = useState(false);
+  const [user, setUser] = useState({
+    isSignedIn: false,
+    name: '',
+    email: '',
+    password: '',
+    photo: '',
+    successNote: '',
+    errorNote : '',
+  });
 
-    const googleSIngIn = () =>{
-        handleGoogleSingIn()
+  const [loggedInUser, setLoggedInUser ] = useContext(UserInfoContext)
+  const history = useHistory();
+  const location = useLocation();
+  let { from } = location.state || { from: { pathname: "/" } };
+
+  
+
+  initializeLoginFramework();
+
+  const googleSIngIn = () => {
+    handleGoogleSingIn()
+    .then(result => {
+        handleResponseData(result,true)
+    })
+  };
+
+  const fbSignIn = () => {
+    handleFacebookSingIn()
+    .then(result => {
+        handleResponseData(result,true)
+    })
+  };
+
+  const handleResponseData = (result,redirect) =>{
+      console.log(result.displayName)
+    setUser(result);
+    setLoggedInUser(result)
+    if(redirect){
+        history.replace(from);
+    }
+    if(result.displayName){
+      history.replace(from);
+    }
+  }
+
+  const handleOnBlur = (e) => {
+    let isFieldValid = true;
+    if(e.target.name === 'email'){
+      isFieldValid = /\S+@\S+\.\S+/.test(e.target.value);
+      console.log(isFieldValid)
+    }
+    if(e.target.name === 'password'){
+      const isPasswordValid = e.target.value.length > 6;
+      const passwordHasNumber =  /\d{1}/.test(e.target.value);
+      isFieldValid = isPasswordValid && passwordHasNumber;
+      console.log(isFieldValid)
+    }
+    if(isFieldValid){
+      const newUserInfo = {...user};
+      newUserInfo[e.target.name] = e.target.value;
+      setUser(newUserInfo);
+    }
+  }
+
+  const handleOnSubmit = (e) => {
+    console.log(user.email, user.password)
+    if(newUser && user.email && user.password){
+        console.log(user.email)
+      createUserWithEmailAndPassword(user.name, user.email, user.password)
+      .then(result => {
+        handleResponseData(result);
+      })
     }
 
-    const fbSignIn = () =>{
-        handleFacebookSingIn()
+    if(!newUser && user.email && user.password){
+        console.log(user.email, user.password)
+      signInWithEmailAndPassword(user.email, user.password)
+      .then(result => {
+        user.successStatus ? handleResponseData(result,true) : handleResponseData(result);
+      })
     }
-
-
+    e.preventDefault();
+  }
+  // const { register, handleSubmit, watch, errors } = useForm();
+  
 
   return (
     <div className="col log-in-card">
-      <h1>Log In</h1>
-      <Form
-        className="logIn-form"
-        noValidate
-      >
+      <h2 className='title'>{newUser ? "Create New Account" : "Log In"}</h2>
+      {user.successStatus ? <p className="text-success text-center">{user.successNote}</p> : <p className="text-danger text-center">{user.error}</p>}
+      {console.log(user.errorNote)}
+      <Form className="logIn-form" onSubmit={handleOnSubmit}  noValidate>
         <Form.Row>
+          {newUser && (
+            <Form.Group className="col-12" controlId="validationCustom03">
+              <Form.Control
+                type="text"
+                name="name"
+                placeholder="Enter your Name"
+                onBlur={handleOnBlur}
+                // ref={register({ required: true })}
+              />
+              {/* {
+                errors.name && <p className="text-danger">Name is required</p>
+              } */}
+            </Form.Group>
+          )}
           <Form.Group className="col-12" controlId="validationCustom03">
-            <Form.Label>Email</Form.Label>
             <Form.Control
               type="text"
+              name="email"
               placeholder="Enter your Email"
+              onBlur={handleOnBlur}
               required
             />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid Email.
-            </Form.Control.Feedback>
+            
           </Form.Group>
           <Form.Group className="col-12" controlId="validationCustom04">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" required />
-            <Form.Control.Feedback type="invalid">
-              Please provide your Password.
-            </Form.Control.Feedback>
+            <Form.Control type="password" name="password" placeholder="Password" onBlur={handleOnBlur} required />
+            
           </Form.Group>
+          {newUser && (
+            <Form.Group className="col-12" controlId="validationCustom04">
+              <Form.Control
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                onBlur={handleOnBlur}
+                required
+              />
+              
+            </Form.Group>
+          )}
         </Form.Row>
-        <Form.Group>
-          <Form.Check label="Remember Password" />
-        </Form.Group>
-        <Link
-          type="submit"
-          className="log-in-btn btn-primary  btn-lg btn-block"
-        >
-          Login
-        </Link>
-        <p>
-          Don't have an account? <Link to="/signUp">Create an account</Link>
-        </p>
+        {!newUser && (
+          <Form.Group>
+            <Form.Check label="Remember Password" />
+          </Form.Group>
+        )}
+        {newUser ? (
+          <Button
+            type="submit"
+            className="log-in-btn btn-primary  btn-lg btn-block"
+          >
+            Create an account
+          </Button>
+        ) : (
+          <Button
+            type="submit"
+            className="log-in-btn btn-primary  btn-lg btn-block"
+          >
+            Login
+          </Button>
+        )}
+        {newUser ? (
+          <p>
+            Already have an account?{" "}
+            <Link onClick={() => setNewUser(!newUser)}>Log In</Link>
+          </p>
+        ) : (
+          <p>
+            Don't have an account?{" "}
+            <Link onClick={() => setNewUser(!newUser)}>Create new account</Link>
+          </p>
+        )}
         <div className="social-sign-up">
           <p className="or">
             <span>or</span>
