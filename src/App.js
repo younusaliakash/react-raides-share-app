@@ -8,7 +8,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import LogIn from "./Components/LogIn/LogIn";
 import Destination from "./Components/Destination/Destination";
 import NotFound from "./Components/NotFound/NotFound";
-import SignUp from "./Components/SignUp/SignUp";
 import { createContext, useState } from "react";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 
@@ -43,9 +42,6 @@ function App() {
               </PrivateRoute>
               <Route path="/login">
                 <LogIn></LogIn>
-              </Route>
-              <Route path="/signUp">
-                <SignUp></SignUp>
               </Route>
               <Route path="*">
                 <NotFound></NotFound>
