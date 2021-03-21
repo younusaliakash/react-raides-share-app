@@ -117,28 +117,6 @@ const LogIn = () => {
     else{
       handleSingUp()
     }
-    // if(user.password !== user.confirmPassword){
-    //   let newUserInfo = {...user}
-    //   newUserInfo.notMatchPassword = "Password not match";
-    //   setUser(newUserInfo);
-    //   return;
-    // }
-    // console.log(user.email, user.password ,user.confirmPassword)
-    // if(newUser && user.email && user.password){
-    //     console.log(user.email)
-    //   createUserWithEmailAndPassword(user.name, user.email, user.password)
-    //   .then(result => {
-    //     handleResponseData(result);
-    //   })
-    // }
-
-    // if(!newUser && user.email && user.password){
-    //     console.log(user.email, user.password)
-    //   signInWithEmailAndPassword(user.email, user.password)
-    //   .then(result => {
-    //     handleResponseData(result);
-    //   })
-    // }
   }
   const { register, handleSubmit, watch, errors } = useForm();
 
