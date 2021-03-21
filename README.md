@@ -11,6 +11,8 @@ Live Link:
     
 > Before try to search ride user must logged in to the website. User can Sign Up or sign In using log in page. After log in successfully user will see his/her Name in top right corner navigation bar. user can log in/sign in useing their google and facebook account. If any user haven't exiting account , user can create an account using user name,email and password .
 
+> Create account and log in password validation with error alert.
+
 
 ## **_Usage Function_** :
 1. Hooks 

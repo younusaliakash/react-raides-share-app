@@ -60,8 +60,7 @@ export const createUserWithEmailAndPassword = (
       const newUserInfo = res.user;
       newUserInfo.error = "";
       newUserInfo.successStatus = true;
-      newUserInfo.successNote = `Account Creation Successful . 
-      Reload & Log in.`;
+      newUserInfo.successNote = "Account Creation Successfull .Reload & Log In";
       updateUserName(displayName);
       return newUserInfo;
     })
@@ -100,6 +99,11 @@ const updateUserName = (name) => {
     .updateProfile({
       displayName: name,
     })
-    .then(function () {})
-    .catch(function (error) {});
+    .then(function () {
+      
+    })
+    .catch(function (error) {
+      
+    });
 };
+

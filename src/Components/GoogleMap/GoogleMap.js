@@ -4,14 +4,14 @@ import './GoogleMap'
 
 const style = {
     maxWidth: "650px",
-    height: "480px",
+    height: "380px",
     overflowX: "hidden",
     overflowY: "hidden",
     borderRadius : "10px"
    };
    const containerStyle = {
     maxWidth: "650px",
-    height: "480px"
+    height: "380px"
    };
 
 export class GoogleMap extends Component {
@@ -45,7 +45,7 @@ export class GoogleMap extends Component {
 
   render() {
     return (
-      <div className="map">
+      <div className="map main col-12">
         <Map
           google={this.props.google}
           style={style} containerStyle={containerStyle}
