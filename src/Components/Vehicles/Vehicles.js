@@ -8,7 +8,7 @@ const Vehicles = (props) => {
   // console.log(props);
   return (
     <div>
-      <CardDeck>
+      <CardDeck >
         <Card
           className="vehicle-card"
           onClick={() => handleVehicleClick(vehicleName)}

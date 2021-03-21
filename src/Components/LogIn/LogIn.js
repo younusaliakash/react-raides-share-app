@@ -21,9 +21,11 @@ const LogIn = () => {
     name: '',
     email: '',
     password: '',
+    confirmPassword: '',
     photo: '',
     successNote: '',
     errorNote : '',
+    notMatchPassword:''
   });
 
   const [loggedInUser, setLoggedInUser ] = useContext(UserInfoContext)
@@ -80,8 +82,14 @@ const LogIn = () => {
     }
   }
 
-  const handleOnSubmit = (e) => {
-    console.log(user.email, user.password)
+  const handleSingUp = () =>{
+    if(user.password !== user.confirmPassword){
+      let newUserInfo = {...user}
+      newUserInfo.notMatchPassword = "Password not match";
+      setUser(newUserInfo);
+      return;
+    }
+    console.log(user.email, user.password ,user.confirmPassword)
     if(newUser && user.email && user.password){
         console.log(user.email)
       createUserWithEmailAndPassword(user.name, user.email, user.password)
@@ -89,17 +97,52 @@ const LogIn = () => {
         handleResponseData(result);
       })
     }
-
-    if(!newUser && user.email && user.password){
-        console.log(user.email, user.password)
-      signInWithEmailAndPassword(user.email, user.password)
-      .then(result => {
-        user.successStatus ? handleResponseData(result,true) : handleResponseData(result);
-      })
-    }
-    e.preventDefault();
   }
-  // const { register, handleSubmit, watch, errors } = useForm();
+
+  const handleSingIn = () =>{
+    if(!newUser && user.email && user.password){
+      console.log(user.email, user.password)
+    signInWithEmailAndPassword(user.email, user.password)
+    .then(result => {
+      handleResponseData(result);
+    })
+  }
+  }
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault()
+    if(!newUser){
+      handleSingIn()
+    }
+    else{
+      handleSingUp()
+    }
+    // if(user.password !== user.confirmPassword){
+    //   let newUserInfo = {...user}
+    //   newUserInfo.notMatchPassword = "Password not match";
+    //   setUser(newUserInfo);
+    //   return;
+    // }
+    // console.log(user.email, user.password ,user.confirmPassword)
+    // if(newUser && user.email && user.password){
+    //     console.log(user.email)
+    //   createUserWithEmailAndPassword(user.name, user.email, user.password)
+    //   .then(result => {
+    //     handleResponseData(result);
+    //   })
+    // }
+
+    // if(!newUser && user.email && user.password){
+    //     console.log(user.email, user.password)
+    //   signInWithEmailAndPassword(user.email, user.password)
+    //   .then(result => {
+    //     handleResponseData(result);
+    //   })
+    // }
+  }
+  const { register, handleSubmit, watch, errors } = useForm();
+
+  
   
 
   return (
@@ -107,7 +150,7 @@ const LogIn = () => {
       <h2 className='title'>{newUser ? "Create New Account" : "Log In"}</h2>
       {user.successStatus ? <p className="text-success text-center">{user.successNote}</p> : <p className="text-danger text-center">{user.error}</p>}
       {console.log(user.errorNote)}
-      <Form className="logIn-form" onSubmit={handleOnSubmit}  noValidate>
+      <Form className="logIn-form" onSubmit={ (e) => handleSubmit(handleOnSubmit(e))}  noValidate>
         <Form.Row>
           {newUser && (
             <Form.Group className="col-12" controlId="validationCustom03">
@@ -116,11 +159,11 @@ const LogIn = () => {
                 name="name"
                 placeholder="Enter your Name"
                 onBlur={handleOnBlur}
-                // ref={register({ required: true })}
+                ref={register({ required: true })}
               />
-              {/* {
+              {
                 errors.name && <p className="text-danger">Name is required</p>
-              } */}
+              }
             </Form.Group>
           )}
           <Form.Group className="col-12" controlId="validationCustom03">
@@ -146,7 +189,7 @@ const LogIn = () => {
                 onBlur={handleOnBlur}
                 required
               />
-              
+              <p className="text-danger">{user.notMatchPassword}</p>
             </Form.Group>
           )}
         </Form.Row>
