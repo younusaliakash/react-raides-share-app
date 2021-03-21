@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Button, Form, InputGroup } from "react-bootstrap";
+import { Button, Form} from "react-bootstrap";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import {
   handleFacebookSingIn,
@@ -10,7 +10,7 @@ import {
 } from "../AuthManager/AuthManager";
 import "./Login.css";
 import { UserInfoContext } from '../../App'
-import { useForm } from "react-hook-form";
+// import { useForm } from "react-hook-form";
 
 
 
@@ -29,6 +29,7 @@ const LogIn = () => {
   });
 
   const [loggedInUser, setLoggedInUser ] = useContext(UserInfoContext)
+  console.log(loggedInUser)
   const history = useHistory();
   const location = useLocation();
   let { from } = location.state || { from: { pathname: "/" } };
@@ -52,15 +53,15 @@ const LogIn = () => {
   };
 
   const handleResponseData = (result,redirect) =>{
-      console.log(result.displayName)
+      console.log(redirect)
     setUser(result);
-    setLoggedInUser(result)
+    setLoggedInUser(!newUser ? result : {})
     if(redirect){
         history.replace(from);
     }
-    if(result.displayName){
-      history.replace(from);
-    }
+    // if(result.displayName){
+    //   history.replace(from);
+    // }
   }
 
   const handleOnBlur = (e) => {
@@ -86,6 +87,7 @@ const LogIn = () => {
     if(user.password !== user.confirmPassword){
       let newUserInfo = {...user}
       newUserInfo.notMatchPassword = "Password not match";
+      newUserInfo.isSignedIn = true;
       setUser(newUserInfo);
       return;
     }
@@ -94,7 +96,7 @@ const LogIn = () => {
         console.log(user.email)
       createUserWithEmailAndPassword(user.name, user.email, user.password)
       .then(result => {
-        handleResponseData(result);
+        handleResponseData(result,false);
       })
     }
   }
@@ -104,7 +106,7 @@ const LogIn = () => {
       console.log(user.email, user.password)
     signInWithEmailAndPassword(user.email, user.password)
     .then(result => {
-      handleResponseData(result);
+      handleResponseData(result,true);
     })
   }
   }
@@ -118,7 +120,7 @@ const LogIn = () => {
       handleSingUp()
     }
   }
-  const { register, handleSubmit, watch, errors } = useForm();
+  // const { register, handleSubmit, watch, errors } = useForm();
 
   
   
@@ -128,7 +130,7 @@ const LogIn = () => {
       <h2 className='title'>{newUser ? "Create New Account" : "Log In"}</h2>
       {user.successStatus ? <p className="text-success text-center">{user.successNote}</p> : <p className="text-danger text-center">{user.error}</p>}
       {console.log(user.errorNote)}
-      <Form className="logIn-form" onSubmit={ (e) => handleSubmit(handleOnSubmit(e))}  noValidate>
+      <Form className="logIn-form" onSubmit={ (e) => handleOnSubmit(e)}  noValidate>
         <Form.Row>
           {newUser && (
             <Form.Group className="col-12" controlId="validationCustom03">
@@ -137,11 +139,11 @@ const LogIn = () => {
                 name="name"
                 placeholder="Enter your Name"
                 onBlur={handleOnBlur}
-                ref={register({ required: true })}
+                // ref={register({ required: true })}
               />
-              {
+              {/* {
                 errors.name && <p className="text-danger">Name is required</p>
-              }
+              } */}
             </Form.Group>
           )}
           <Form.Group className="col-12" controlId="validationCustom03">
