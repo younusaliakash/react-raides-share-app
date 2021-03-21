@@ -43,9 +43,9 @@ function App() {
               <Route path="/login">
                 <LogIn></LogIn>
               </Route>
-              {/* <Route path="*">
+              <Route path="*">
                 <NotFound></NotFound>
-              </Route> */}
+              </Route>
             </Switch>
           </Router>
         </div>

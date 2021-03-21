@@ -1,13 +1,12 @@
-import React from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from "./firebase.config";
 
-export const initializeLoginFramework = () =>{
-    if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-      }
-}
+export const initializeLoginFramework = () => {
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+};
 
 export const handleGoogleSingIn = () => {
   const googleSingInProvider = new firebase.auth.GoogleAuthProvider();
@@ -16,91 +15,91 @@ export const handleGoogleSingIn = () => {
     .signInWithPopup(googleSingInProvider)
     .then((result) => {
       let user = result.user;
-      const {displayName , email, photoURL} = user;
+      const { displayName, email, photoURL } = user;
       const loggedInUser = {
-          isLoggedIn : true,
-          displayName : displayName,
-          email : email,
-          photo : photoURL,
-          successStatus : true
+        isLoggedIn: true,
+        displayName: displayName,
+        email: email,
+        photo: photoURL,
+        successStatus: true,
       };
       return loggedInUser;
     })
-    .catch((error) => {
-    });
+    .catch((error) => {});
 };
 
 export const handleFacebookSingIn = () => {
-    const facebookSingINProvider = new firebase.auth.FacebookAuthProvider();
-    return firebase
-      .auth()
-      .signInWithPopup(facebookSingINProvider)
-      .then((result) => {
-        let user = result.user;
-        const {displayName , email, photoURL} = user;
-        const signedInUser = {
-          isLoggedIn : true,
-          displayName : displayName,
-          email : email,
-          photo : photoURL,
-          successStatus : true
+  const facebookSingINProvider = new firebase.auth.FacebookAuthProvider();
+  return firebase
+    .auth()
+    .signInWithPopup(facebookSingINProvider)
+    .then((result) => {
+      let user = result.user;
+      const { displayName, email, photoURL } = user;
+      const signedInUser = {
+        isLoggedIn: true,
+        displayName: displayName,
+        email: email,
+        photo: photoURL,
+        successStatus: true,
       };
       return signedInUser;
-      })
-      .catch((error) => {
-      });
-  };
+    })
+    .catch((error) => {});
+};
 
-  export const createUserWithEmailAndPassword = (displayName, email, password) => {
-    return firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then( res => {
+export const createUserWithEmailAndPassword = (
+  displayName,
+  email,
+  password
+) => {
+  return firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then((res) => {
       const newUserInfo = res.user;
-      newUserInfo.error = '';
+      newUserInfo.error = "";
       newUserInfo.successStatus = true;
-      newUserInfo.successNote = 'Account Creation Successfull'
+      newUserInfo.successNote = `Account Creation Successful . 
+      Reload & Log in.`;
       updateUserName(displayName);
       return newUserInfo;
     })
-    .catch( error => {
+    .catch((error) => {
       const newUserInfo = {};
       newUserInfo.error = error.message;
       newUserInfo.successStatus = false;
-      newUserInfo.errorNote = 'Somthing went to wrong'
+      newUserInfo.errorNote = "Somthing went to wrong";
       return newUserInfo;
     });
- }
-
- export const signInWithEmailAndPassword = (email, password) =>{
-    return firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(res => {
-      const newUserInfo = res.user;
-      newUserInfo.error = '';
-      newUserInfo.successStatus = true;
-      newUserInfo.successNote = 'Log In Successfull'
-      return newUserInfo;
-    })
-    .catch(function(error) {
-      const newUserInfo = {};
-      newUserInfo.error = error.message;
-      newUserInfo.successStatus = false;
-      newUserInfo.errorNote = 'Email & password not match in any account'
-      return newUserInfo;
-    });
- }
-
- const updateUserName = name =>{
-    const user = firebase.auth().currentUser;
-    user.updateProfile({
-      displayName: name
-    }).then(function() {
-      console.log('user name updated successfully')
-    }).catch(function(error) {
-      console.log(error)
-    });
-  }
-
-const AuthManager = () => {
-  return <div></div>;
 };
 
-export default AuthManager;
+export const signInWithEmailAndPassword = (email, password) => {
+  return firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .then((res) => {
+      const newUserInfo = res.user;
+      newUserInfo.error = "";
+      newUserInfo.successStatus = true;
+      newUserInfo.successNote = "Log In Successfull";
+      return newUserInfo;
+    })
+    .catch(function (error) {
+      const newUserInfo = {};
+      newUserInfo.error = error.message;
+      newUserInfo.successStatus = false;
+      newUserInfo.errorNote = "Email & password not match in any account";
+      return newUserInfo;
+    });
+};
+
+const updateUserName = (name) => {
+  const user = firebase.auth().currentUser;
+  user
+    .updateProfile({
+      displayName: name,
+    })
+    .then(function () {})
+    .catch(function (error) {});
+};

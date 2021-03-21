@@ -1,19 +1,12 @@
 import React, { useContext } from "react";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Nav, Navbar } from "react-bootstrap";
 import './Header.css'
 import { UserInfoContext } from "../../App";
 
 const Header = () => {
   const [loggedInUser] = useContext(UserInfoContext);
-  console.log(loggedInUser)
   const {displayName} = loggedInUser;
-  console.log(displayName)
   return (
     <div>
       <Navbar collapseOnSelect expand="lg" bg="transperant" variant="light">

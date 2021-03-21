@@ -3,12 +3,11 @@ import { Card, CardDeck } from "react-bootstrap";
 import "./Vehicles.css";
 
 const Vehicles = (props) => {
-  const {vehicleType, vehiclePhoto, vehicleName } = props.vehicleInfo;
+  const { vehicleType, vehiclePhoto, vehicleName } = props.vehicleInfo;
   const handleVehicleClick = props.handleVehicleClick;
-  // console.log(props);
   return (
     <div>
-      <CardDeck >
+      <CardDeck>
         <Card
           className="vehicle-card"
           onClick={() => handleVehicleClick(vehicleName)}

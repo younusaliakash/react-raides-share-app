@@ -1,136 +1,128 @@
 import React, { useContext, useState } from "react";
-import { Button, Form} from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import {
   handleFacebookSingIn,
   handleGoogleSingIn,
   initializeLoginFramework,
   createUserWithEmailAndPassword,
-    signInWithEmailAndPassword 
+  signInWithEmailAndPassword,
 } from "../AuthManager/AuthManager";
 import "./Login.css";
-import { UserInfoContext } from '../../App'
-// import { useForm } from "react-hook-form";
-
-
+import { UserInfoContext } from "../../App";
+import { useForm } from "react-hook-form";
 
 const LogIn = () => {
   const [newUser, setNewUser] = useState(false);
   const [user, setUser] = useState({
     isSignedIn: false,
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    photo: '',
-    successNote: '',
-    errorNote : '',
-    notMatchPassword:''
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    photo: "",
+    successNote: "",
+    errorNote: "",
+    notMatchPassword: "",
   });
 
-  const [loggedInUser, setLoggedInUser ] = useContext(UserInfoContext)
-  console.log(loggedInUser)
+  const { register, handleSubmit, errors } = useForm();
+  const [loggedInUser, setLoggedInUser] = useContext(UserInfoContext);
   const history = useHistory();
   const location = useLocation();
   let { from } = location.state || { from: { pathname: "/" } };
 
-  
-
   initializeLoginFramework();
 
+  //social log in functions start//
   const googleSIngIn = () => {
-    handleGoogleSingIn()
-    .then(result => {
-        handleResponseData(result,true)
-    })
+    handleGoogleSingIn().then((result) => {
+      handleResponseData(result, true);
+    });
   };
 
   const fbSignIn = () => {
-    handleFacebookSingIn()
-    .then(result => {
-        handleResponseData(result,true)
-    })
+    handleFacebookSingIn().then((result) => {
+      handleResponseData(result, true);
+    });
+  };
+  //social log in functions end//
+
+  const handleResponseData = (result, redirect) => {
+    setUser(result);
+    setLoggedInUser(!newUser ? result : {});
+    if (redirect) {
+      history.replace(from);
+    }
   };
 
-  const handleResponseData = (result,redirect) =>{
-      console.log(redirect)
-    setUser(result);
-    setLoggedInUser(!newUser ? result : {})
-    if(redirect){
-        history.replace(from);
-    }
-    // if(result.displayName){
-    //   history.replace(from);
-    // }
-  }
-
+  //***create account & log in functions start***//
   const handleOnBlur = (e) => {
     let isFieldValid = true;
-    if(e.target.name === 'email'){
+    if (e.target.name === "email") {
       isFieldValid = /\S+@\S+\.\S+/.test(e.target.value);
-      console.log(isFieldValid)
     }
-    if(e.target.name === 'password'){
+    if (e.target.name === "password") {
       const isPasswordValid = e.target.value.length > 6;
-      const passwordHasNumber =  /\d{1}/.test(e.target.value);
+      const passwordHasNumber = /\d{1}/.test(e.target.value);
       isFieldValid = isPasswordValid && passwordHasNumber;
-      console.log(isFieldValid)
     }
-    if(isFieldValid){
-      const newUserInfo = {...user};
+    if (isFieldValid) {
+      const newUserInfo = { ...user };
       newUserInfo[e.target.name] = e.target.value;
       setUser(newUserInfo);
     }
-  }
+  };
 
-  const handleSingUp = () =>{
-    if(user.password !== user.confirmPassword){
-      let newUserInfo = {...user}
+  //handle new account creation function//
+  const handleSingUp = () => {
+    if (user.password !== user.confirmPassword) {
+      let newUserInfo = { ...user };
       newUserInfo.notMatchPassword = "Password not match";
       newUserInfo.isSignedIn = true;
       setUser(newUserInfo);
       return;
     }
-    console.log(user.email, user.password ,user.confirmPassword)
-    if(newUser && user.email && user.password){
-        console.log(user.email)
-      createUserWithEmailAndPassword(user.name, user.email, user.password)
-      .then(result => {
-        handleResponseData(result,false);
-      })
+    if (newUser && user.email && user.password) {
+      createUserWithEmailAndPassword(user.name, user.email, user.password).then(
+        (result) => {
+          handleResponseData(result, false);
+        }
+      );
     }
-  }
+  };
 
-  const handleSingIn = () =>{
-    if(!newUser && user.email && user.password){
-      console.log(user.email, user.password)
-    signInWithEmailAndPassword(user.email, user.password)
-    .then(result => {
-      handleResponseData(result,true);
-    })
-  }
-  }
+  //handle log in account function
+  const handleSingIn = () => {
+    if (!newUser && user.email && user.password) {
+      signInWithEmailAndPassword(user.email, user.password).then((result) => {
+        handleResponseData(result, true);
+      });
+    }
+  };
 
   const handleOnSubmit = (e) => {
-    e.preventDefault()
-    if(!newUser){
-      handleSingIn()
+    if (!newUser) {
+      handleSingIn();
+    } else {
+      handleSingUp();
     }
-    else{
-      handleSingUp()
-    }
-  }
-  // const { register, handleSubmit, watch, errors } = useForm();
-
-  
-  
+  };
+  //**create account & log in functions end***//
 
   return (
     <div className="col log-in-card">
-      <h2 className='title'>{newUser ? "Create New Account" : "Log In"}</h2>
-      {user.successStatus ? <p className="text-success text-center">{user.successNote}</p> : <p className="text-danger text-center">{user.error}</p>}
-      {console.log(user.errorNote)}
-      <Form className="logIn-form" onSubmit={ (e) => handleOnSubmit(e)}  noValidate>
+      <h2 className="title">{newUser ? "Create New Account" : "Log In"}</h2>
+      {user.successStatus ? (
+        <p className="text-success text-center">{user.successNote}</p>
+      ) : (
+        <p className="text-danger text-center">{user.error}</p>
+      )}
+      <Form
+        className="logIn-form"
+        onSubmit={handleSubmit(handleOnSubmit)}
+        noValidate
+      >
         <Form.Row>
           {newUser && (
             <Form.Group className="col-12" controlId="validationCustom03">
@@ -139,11 +131,13 @@ const LogIn = () => {
                 name="name"
                 placeholder="Enter your Name"
                 onBlur={handleOnBlur}
-                // ref={register({ required: true })}
+                ref={register({ required: true, mminLength: 2 })}
               />
-              {/* {
-                errors.name && <p className="text-danger">Name is required</p>
-              } */}
+              {errors.name && (
+                <span className="text-danger">
+                  Name must be more than 2 Characters
+                </span>
+              )}
             </Form.Group>
           )}
           <Form.Group className="col-12" controlId="validationCustom03">
@@ -152,13 +146,29 @@ const LogIn = () => {
               name="email"
               placeholder="Enter your Email"
               onBlur={handleOnBlur}
-              required
+              ref={register({ required: true, pattern: /\S+@\S+\.\S+/ })}
             />
-            
+            {errors.email && (
+              <span className="text-danger">Provide a valid email</span>
+            )}
           </Form.Group>
           <Form.Group className="col-12" controlId="validationCustom04">
-            <Form.Control type="password" name="password" placeholder="Password" onBlur={handleOnBlur} required />
-            
+            <Form.Control
+              type="password"
+              name="password"
+              placeholder="Password"
+              onBlur={handleOnBlur}
+              ref={register({
+                required: true,
+                mminLength: 6,
+                pattern: /\d{1}/,
+              })}
+            />
+            {errors.password && (
+              <span className="text-danger">
+                Password must be 6 characters with a number.
+              </span>
+            )}
           </Form.Group>
           {newUser && (
             <Form.Group className="col-12" controlId="validationCustom04">
