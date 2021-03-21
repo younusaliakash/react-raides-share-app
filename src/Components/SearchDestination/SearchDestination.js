@@ -3,7 +3,6 @@ import { Button, Form } from "react-bootstrap";
 import "./SearchDestination.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExchangeAlt, faUsers } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
 
 const SearchDestination = (props) => {
   const { fareDetails } = props.selectedVehicleInfo || {};
